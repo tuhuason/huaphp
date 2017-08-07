@@ -51,22 +51,23 @@ class view
         if($tpl == 'not_found'){
             $file = VIEW_PATH . "/not_found.php";
         }else{
-            $file = VIEW_PATH . "/" . _MODULE_ . '/' .$tpl . ".php";
+            $file = VIEW_PATH . "/" . _MODULE_ . '/' . _CONTROLLER_ . "/" .$tpl . ".php";
         }
+
+        $vars['messages'] = "Can't find the view file: $file";
 
         if (file_exists($file)) {
             //解析正则规则匹配的标签
             $data = self::compile(file_get_contents($file));
             //创建文件
             self::create($target, $data, -1);
-            
-            if($file == VIEW_PATH . "/not_found.php"){
-                $vars['messages'] = "Can't find the view file: $file";
-            }
 
             //从数组中将变量导入到当前的符号表  EXTR_OVERWRITE表示如果有冲突，覆盖已有的变量。
             extract($vars);
             require_once file_exists($target) ? $target : $file;
+        }else{
+            extract($vars);
+            require_once VIEW_PATH . "/not_found.php";
         }
     }
 
