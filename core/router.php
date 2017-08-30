@@ -1,5 +1,4 @@
 <?php
-use core\container;
 use core\http;
 
 class router
@@ -29,7 +28,7 @@ class router
 
             if (class_exists($class)) {
                 if(method_exists($class, _ACTION_)){
-                    return app::singleton($class)->{_ACTION_}();
+                    return app::getInstance($class)->{_ACTION_}();
                 }else{
                     http::error(404, 'Can\'t find method: '. $class. '->' ._ACTION_.'()');
                 }
@@ -78,7 +77,7 @@ class router
     static function getUri()
     {
         if (isset($_GET["_s"])) {
-            $uri = str_replace(".html", "", trim($_GET["_s"], "/"));
+            $uri = str_replace(".html", "", htmlspecialchars(strip_tags(trim($_GET["_s"]))), "/"));
             foreach (self::$rule as $pattern => $url) {
                 $pattern = str_replace('(num)', '(\d*)', $pattern);
                 $uri = preg_replace('@' . $pattern . "@", $url, $uri);

@@ -5,6 +5,7 @@
 namespace core;
 
 use core\http;
+use core\view;
 
 class controller {
 
@@ -15,7 +16,7 @@ class controller {
         $this->_data[$key] = $value;
     }
 
-    public function display($tpl = _ACTION_, $vars = array())
+    protected function display($tpl = _ACTION_, $vars = array())
     {
         $params =  array_merge($vars, $this->_data);
         view::display($tpl, $params);

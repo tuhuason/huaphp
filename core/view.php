@@ -3,6 +3,9 @@
  * 视图层
  */
 namespace core;
+
+use errors;
+
 class view
 {
     static function create($target, $tData, $expireTime)
@@ -45,7 +48,7 @@ class view
     static function display($tpl = _ACTION_, $vars = array())
     {
         //缓存或解析文件
-        $target = ROOT_PATH . "/cache/" . _MODULE_ . "/" . $tpl . ".php";
+        $target = ROOT_PATH . "/cache/" . _MODULE_ . "/" . _CONTROLLER_ . "/" . $tpl . ".php";
 
         //视图文件
         if($tpl == 'not_found'){
@@ -57,17 +60,28 @@ class view
         $vars['messages'] = "Can't find the view file: $file";
 
         if (file_exists($file)) {
+
+            if($file == VIEW_PATH . "/not_found.php"){
+                extract($vars);
+                errors::file(isset($vars['message'])?$vars['message']:$vars['messages']);
+                require_once $file;
+                exit;
+            }
+
             //解析正则规则匹配的标签
             $data = self::compile(file_get_contents($file));
             //创建文件
             self::create($target, $data, -1);
 
-            //从数组中将变量导入到当前的符号表  EXTR_OVERWRITE表示如果有冲突，覆盖已有的变量。
+            //从数组中将变量导入到当前的符号表
             extract($vars);
             require_once file_exists($target) ? $target : $file;
+            exit;
         }else{
             extract($vars);
+            errors::file(isset($vars['message'])?$vars['message']:$vars['messages']);
             require_once VIEW_PATH . "/not_found.php";
+            exit;
         }
     }
 

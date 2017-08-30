@@ -14,7 +14,7 @@ class services
             $model = 'home\models\\'.$uri[0];
             $method = $uri[1];
 
-            return app::singleton($model)->$method($params);
+            return app::getInstance($model)->$method($params);
         }
     }
 

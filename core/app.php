@@ -16,7 +16,7 @@ class app
         self::$container[$name] = !is_callable($call) ? new $call() : $call();
     }
 
-    static function singleton($class, $name=array())
+    static function getInstance($class, $name=array())
     {
         $key = md5($class.serialize($name));
         if (!isset(self::$container[$key])) {
