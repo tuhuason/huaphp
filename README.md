@@ -1,5 +1,7 @@
 #huaphp
 
+[![Build Status](https://travis-ci.org/tuhuason/huaphp.svg?branch=master)](https://travis-ci.org/tuhuason/huaphp)
+
 参考某框架制作简易的php MVC框架，轻量、简单、扩展性强。
 
 ```
