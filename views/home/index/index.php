@@ -66,7 +66,7 @@
                     welcome to huaphp!
                 </div>
                 <div class="links">
-                    <a href="http://git.oschina.net/tuhuazi/huaphp">Documentation</a>
+                    <a href="http://git.oschina.net/tuhuason/huaphp" target="_blank">Documentation</a>
                 </div>
             </div>
         </div>

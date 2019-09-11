@@ -48,7 +48,7 @@ class app
         //加载配置
         self::$config = include ROOT_PATH . "/config/app.php";
         //连接数据库
-        empty(self::$config['db']) || db::connect(self::$config['db']);
+        empty(self::$config['db']['dsn']) || db::connect(self::$config['db']);
         empty(self::$config['rule']) || router::set(self::$config['rule']);
     }
 

@@ -77,7 +77,7 @@ class router
     static function getUri()
     {
         if (isset($_GET["_s"])) {
-            $uri = str_replace(".html", "", htmlspecialchars(strip_tags(trim($_GET["_s"]))), "/"));
+            $uri = str_replace(".html", "", htmlspecialchars(strip_tags(trim($_GET["_s"])), "/"));
             foreach (self::$rule as $pattern => $url) {
                 $pattern = str_replace('(num)', '(\d*)', $pattern);
                 $uri = preg_replace('@' . $pattern . "@", $url, $uri);
